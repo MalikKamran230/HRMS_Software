@@ -1,0 +1,65 @@
+/* General styles for temp-message containers */
+.temp-message {
+    position: relative;
+    padding: 12px 24px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+    .temp-message .close-btn {
+        background: none;
+        border: none;
+        font-size: 18px;
+        color: #888;
+        cursor: pointer;
+        transition: color 0.3s ease;
+    }
+
+        .temp-message .close-btn:hover {
+            color: #000;
+        }
+
+    /* Success message */
+    .temp-message.success {
+        background-color: #d4edda; /* Light green */
+        color: #155724; /* Dark green */
+        border: 1px solid #c3e6cb; /* Green border */
+    }
+
+    /* Error message */
+    .temp-message.error {
+        background-color: #f8d7da; /* Light red */
+        color: #721c24; /* Dark red */
+        border: 1px solid #f5c6cb; /* Red border */
+    }
+
+    /* Info message */
+    .temp-message.info {
+        background-color: #cce5ff; /* Light blue */
+        color: #004085; /* Dark blue */
+        border: 1px solid #b8daff; /* Blue border */
+    }
+
+    /* Ensure that the message box does not overflow */
+    .temp-message span {
+        max-width: 90%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+/* Optional: For mobile responsiveness */
+@media (max-width: 767px) {
+    .temp-message {
+        font-size: 12px;
+        padding: 10px 20px;
+    }
+
+        .temp-message .close-btn {
+            font-size: 16px;
+        }
+}

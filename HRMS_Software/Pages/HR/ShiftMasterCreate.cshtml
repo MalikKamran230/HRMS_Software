@@ -1,0 +1,112 @@
+﻿@page
+@model HRMS.Pages.HR.ShiftMasterCreateModel
+@{
+    ViewData["Title"] = "Shift Master";
+}
+<div class="flex-lg-row-fluid mb-10 mb-lg-0 me-lg-7 me-xl-10">
+    <div class="card">
+        <div class="card-body p-12">
+            <h1>Shift Master</h1>
+            <form method="post" id="kt_shift_form" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
+                <div class="row gx-10">
+                    <!-- Shift Details -->
+                    <div class="col-lg-4 mb-5">
+                        <label asp-for="cls_Shift.PinNumber" class="form-label">Shift Code</label>
+                        <input asp-for="cls_Shift.PinNumber" class="form-control form-control-solid" readonly />
+                        <span asp-validation-for="cls_Shift.PinNumber" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4 mb-5">
+                        <label asp-for="cls_Shift.Description" class="form-label">Shift Name</label>
+                        <input asp-for="cls_Shift.Description" class="form-control form-control-solid" />
+                        <span asp-validation-for="cls_Shift.Description" class="text-danger"></span>
+                    </div>
+                   
+                    <!-- Shift Timings -->
+                    <div class="col-lg-4 mb-5">
+                        <label asp-for="cls_Shift.StartTime" class="form-label">Start Time</label>
+                        <input asp-for="cls_Shift.StartTime" type="time" class="form-control form-control-solid" />
+                        <span asp-validation-for="cls_Shift.StartTime" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4 mb-5">
+                        <label asp-for="cls_Shift.EndTime" class="form-label">End Time</label>
+                        <input asp-for="cls_Shift.EndTime" type="time" class="form-control form-control-solid" />
+                        <span asp-validation-for="cls_Shift.EndTime" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4 mb-5">
+                        <label asp-for="cls_Shift.GraceTime" class="form-label">Grace Time (minutes)</label>
+                        <input asp-for="cls_Shift.GraceTime" type="number" class="form-control form-control-solid" />
+                        <span asp-validation-for="cls_Shift.GraceTime" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4 mb-5">
+                        <label asp-for="cls_Shift.LeftAfter" class="form-label">Left After</label>
+                        <input asp-for="cls_Shift.LeftAfter" type="number" class="form-control form-control-solid" />
+                        <span asp-validation-for="cls_Shift.LeftAfter" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4 mb-5">
+                        <label asp-for="cls_Shift.HalfDayLate" class="form-label">Half Day</label>
+                        <input asp-for="cls_Shift.HalfDayLate" type="number" class="form-control form-control-solid" />
+                        <span asp-validation-for="cls_Shift.HalfDayLate" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4 mb-5">
+                        <label asp-for="cls_Shift.ShortLeaveLate" class="form-label">Short Leave Late</label>
+                        <input asp-for="cls_Shift.ShortLeaveLate" type="number" class="form-control form-control-solid" />
+                        <span asp-validation-for="cls_Shift.ShortLeaveLate" class="text-danger"></span>
+                    </div>
+
+                    <!-- Shift Settings -->
+                    <div class="col-lg-4 mb-5">
+                        <label asp-for="cls_Shift.WorkingHrs" class="form-label">Working Hours</label>
+                        <input asp-for="cls_Shift.WorkingHrs" class="form-control form-control-solid" />
+                        <span asp-validation-for="cls_Shift.WorkingHrs" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="col-lg-4 mb-5">
+                        <label asp-for="cls_Shift.MinOverTime" class="form-label">Minimum Overtime (minutes)</label>
+                        <input asp-for="cls_Shift.MinOverTime" class="form-control form-control-solid" />
+                        <span asp-validation-for="cls_Shift.MinOverTime" class="text-danger"></span>
+                    </div>
+
+                    <!-- Overtime -->
+                    <div class="col-lg-4 mb-5">
+                        <label asp-for="cls_Shift.MaxOverTime" class="form-label">Maximum Overtime (minutes)</label>
+                        <input asp-for="cls_Shift.MaxOverTime" class="form-control form-control-solid" />
+                        <span asp-validation-for="cls_Shift.MaxOverTime" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-3 mb-5">
+                    </div>
+                    <div class="col-lg-3 mb-5">
+                        <label asp-for="cls_Shift.NightShift" class="form-label">Night Shift</label>
+                        <input type="checkbox" asp-for="cls_Shift.NightShift" class="form-check-input" value="true" />
+                        <input type="hidden" name="cls_Shift.NightShift" value="false" />
+                        <span asp-validation-for="cls_Shift.NightShift" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-3 mb-5">
+                        <label asp-for="cls_Shift.FridayOff" class="form-label">Friday Off</label>
+                        <input type="checkbox" asp-for="cls_Shift.FridayOff" class="form-check-input" value="true" />
+                        <input type="hidden" name="cls_Shift.FridayOff" value="false" />
+                        <span asp-validation-for="cls_Shift.FridayOff" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-3 mb-5">
+                        <label asp-for="cls_Shift.SaturdayOff" class="form-label">Saturday Off</label>
+                        <input type="checkbox" asp-for="cls_Shift.SaturdayOff" class="form-check-input" value="true" />
+                        <input type="hidden" name="cls_Shift.SaturdayOff" value="false" />
+                        <span asp-validation-for="cls_Shift.SaturdayOff" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-3 mb-5">
+                        <label asp-for="cls_Shift.SundayOff" class="form-label">Sunday Off</label>
+                        <input type="checkbox" asp-for="cls_Shift.SundayOff" class="form-check-input" value="true" />
+                        <input type="hidden" name="cls_Shift.SundayOff" value="false" />
+                        <span asp-validation-for="cls_Shift.SundayOff" class="text-danger"></span>
+                    </div>
+
+                    <!-- Form Submit Buttons -->
+                    <div class="text-center pt-15">
+                        <a class="btn btn-light me-3" href="/HR/ShiftMasterList">Discard</a>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

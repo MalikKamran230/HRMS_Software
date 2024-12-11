@@ -1,0 +1,641 @@
+﻿@page
+@model HRMS.Pages.HR.EmployeeModel
+@{
+    ViewData["Title"] = "Employee";
+}
+
+<style>
+	.input-error {
+		border-color: red !important; /* Red border to indicate error */
+		width: 95% !important; /* Shrink the input field */
+		transition: width 0.3s ease; /* Smooth transition */
+	}
+
+		.input-error + .text-danger {
+			font-size: 12px;
+			margin-top: 5px;
+			display: block;
+		}
+</style>
+
+<div class="row">
+	<div class="col-12">
+		<div class="card mb-4">
+			<div class="card-header pb-0 d-flex justify-content-between align-items-center">
+				<h6>Employe Form</h6>
+				<div>
+					<a class="btn btn-primary btn-sm me-2" href="\eligibility\eligibilitylist">Back</a>
+				</div>
+			</div>
+			<br />
+			<div class="card-body px-0 pt-0 pb-2">
+				<div class="container">
+					<form method="post">
+						<div id="wizardForm">
+							<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+							<!-- Step 1:-->
+							<div class="step" id="step-1" style="display:block;">
+								<h5 class="mb-4 text-primary">Personal Information</h5>
+								<div class="row">
+									<div class="col-md-4 mb-3">
+										Pin Number
+										<input id="PN" asp-for="cls_Employee.Code" type="text" disabled class="form-control" placeholder="Pin Number" aria-label="Pin Number">
+									</div>
+									<div class="col-md-4 mb-3">
+										Employee Name
+										<input asp-for="cls_Employee.Name" type="text" class="form-control" id="EName" placeholder="Employee Name" aria-label="Employee Name">
+									</div>
+									<div class="col-md-4 mb-3">
+										Father Name
+										<input asp-for="cls_Employee.Fname" type="text" class="form-control" id="Fname" placeholder="Father Name" aria-label="Employee Name">
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="col-md-4 mb-3">
+										Date Of Birth
+										<input asp-for="cls_Employee.DateofBirth" type="date" class="form-control" placeholder="DOB" aria-label="DOB">
+									</div>
+									<div class="col-md-4 mb-3">
+										Gender
+										<select asp-for="cls_Employee.MaritalStatus" class="form-select" aria-label="Gender">
+											<option selected>Select Gender</option>
+											<option value="1">Male</option>
+											<option value="2">Female</option>
+											<option value="3">Other</option>
+										</select>
+									</div>
+									<div class="col-md-4 mb-3">
+										Marital Status
+										<select asp-for="cls_Employee.MaritalStatus" class="form-select" aria-label="Marital Status">
+											<option selected>Marital Status</option>
+											<option value="1">UnMarried</option>
+											<option value="2">Married</option>
+											<option value="3">Divorce</option>
+										</select>
+									</div>
+								</div>
+								<div class="row">
+									@* // Bind Nationality Dropdown  *@
+									<div class="col-md-4 mb-3">
+										Nationality
+										<input id="NationalityId" asp-for="cls_Employee.NationalityId" type="tel" class="form-control" placeholder="Phone Number" aria-label="Phone Number">
+									</div>
+									@* // Bind Nationality Dropdown  *@
+									<div class="col-md-4 mb-3">
+										Birth Place
+										<input id="BirthPlace" asp-for="cls_Employee.BirthPlace" type="number" class="form-control" aria-label="Birth Place">
+									</div>
+									<div class="col-md-4 mb-3">
+										Religion
+										<select asp-for="cls_Employee.Religion" class="form-select" aria-label="Religion">
+											<option selected>Select Religion</option>
+											<option value="1">Muslim</option>
+											<option value="2">Hindu</option>
+											<option value="3">Christian</option>
+										</select>
+									</div>
+								</div>
+								<h5 class="mb-4 text-primary">Contact Information</h5>
+								<div class="row">
+									<div class="col-md-4 mb-3">
+										Email
+										<input asp-for="cls_Employee.PersonalEmail" type="text" class="form-control" placeholder="Personal Email" aria-label="Personal Email">
+									</div>
+									<div class="col-md-4 mb-3">
+										Contact Number
+										<input asp-for="cls_Employee.Contact" type="text" class="form-control" placeholder="Contact Number" aria-label="Contact Number">
+									</div>
+									<div class="col-md-4 mb-3">
+										Another Contact Number
+										<input asp-for="cls_Employee.MobileNo1" type="text" class="form-control" placeholder="Another Contact Number" aria-label="Amother Contact Number">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-4 mb-3">
+										Present Address
+										<input asp-for="cls_Employee.PresentAddress" type="text" class="form-control" placeholder="Present Address" aria-label="Present Address">
+									</div>
+									<div class="col-md-4 mb-3">
+									Permanent Address
+									<input asp-for="cls_Employee.PermanentAddress" type="text" class="form-control" placeholder="Permanent Address" aria-label="Permanent Address">
+								</div>
+									
+								</div>
+								<!-- Next Button -->
+								<div class="row text-center">
+									<div class="col-md-6">
+										<button type="button" class="btn btn-sm btn-success w-100 my-2" id="nextBtn" onclick="nextStep(1)">Next</button>
+									</div>
+								</div>
+							</div>
+							<!-- Step 2:-->
+							<div class="step" id="step-2" style="display:none;">
+								<h5 class="mb-4 text-primary">Employment Details</h5>
+								<div class="row">
+									<div class="col-md-4 mb-3">
+										<label class="form-label">Supervisor/Manager</label>
+										<select asp-for="cls_Employee.Manager" class="form-control form-control-solid">
+											<option value="" disabled selected>Select Supervisor/Manager</option>
+											<option value="1">Ali</option>
+											<option value="2">Hassan</option>
+											<option value="3">Hussain</option>
+											<option value="4">Zain</option>
+											<option value="5">Baqie</option>
+										</select>
+										<span asp-validation-for="cls_Employee.Manager" class="text-danger"></span>
+									</div>
+									<div class="col-md-4 mb-3">
+											<label class="form-label">Job Type</label>
+										<select asp-for="cls_Employee.JobType" class="form-control form-control-solid">
+												<option value="" disabled selected>Select Job Type</option>
+												<option value="1">Full-time</option>
+												<option value="2">Part-time</option>
+												<option value="3">Contract</option>
+												<option value="4">Temporary</option>
+												<option value="5">Internship</option>
+											</select>
+										<span asp-validation-for="cls_Employee.JobType" class="text-danger"></span>
+									</div>
+									<div class="col-md-4 mb-3">
+										<label class="form-label">Designation</label>
+										<select asp-for="cls_Employee.DesignationId" class="form-control form-control-solid">
+											<select asp-for="cls_Employee.DesignationId" class="form-control form-control-solid">
+												<option value="" disabled selected>Select Supervisor/Manager</option>
+												<option value="1">Manager</option>
+												<option value="2">Admin</option>
+												<option value="3">HR</option>
+											</select>
+										</select>
+										<span asp-validation-for="cls_Employee.DesignationId" class="text-danger"></span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-4 mb-3">
+										<label class="form-label">Job</label>
+										<select asp-for="cls_Employee.JobId" class="form-control form-control-solid">
+											<option value="" disabled selected>Select Job</option>
+											<option value="1">Dot Net</option>
+											<option value="2">FrontEnd Developer</option>
+											<option value="3">Back End Developer</option>
+										</select>
+										<span asp-validation-for="cls_Employee.JobId" class="text-danger"></span>
+									</div>
+									<div class="col-md-4 mb-3">
+										<label class="form-label">Department</label>
+										<select asp-for="cls_Employee.DepartmentId" class="form-control form-control-solid">
+											<option value="" disabled selected>Select Department</option>
+											<option value="1">HR</option>
+											<option value="2">SEO</option>
+											<option value="3">WebSite</option>
+										</select>
+										<span asp-validation-for="cls_Employee.DepartmentId" class="text-danger"></span>
+									</div>
+									<div class="col-md-4 mb-3">
+										Joining Date
+										<input asp-for="cls_Employee.JoiningDate" type="date" class="form-control form-control-solid" placeholder="Joining Date" aria-label="Joining Date">
+									</div>
+									
+								</div>
+								<div class="row">
+									<div class="col-md-4 mb-3">
+										<label class="form-label">Branch</label>
+										<select asp-for="cls_Employee.BranchId" class="form-control form-control-solid">
+											<option value="" disabled selected>Select Branch</option>
+											<option value="1">Karachi</option>
+											<option value="2">Lahore</option>
+											<option value="3">Islamabad</option>
+										</select>
+										<span asp-validation-for="cls_Employee.BranchId" class="text-danger"></span>
+									</div>
+									<div class="col-md-4 mb-3">
+										Employee Status :
+										<select asp-for="cls_Employee.EmployeeStatus" class="form-control form-control-solid" aria-label="Employee Status">
+											<option selected>Select Employee Status</option>
+											<option value="1">Active</option>
+											<option value="2">On Leave</option>
+											<option value="3">Resigned</option>
+											<option value="4">Retired</option>
+										</select>
+									</div>
+								</div>
+								<!-- Previous and Next Buttons -->
+								<div class="row text-center">
+									<div class="col-md-6">
+										<button type="button" class="btn btn-sm btn-secondary w-100 my-2" onclick="prevStep(1)">Previous</button>
+									</div>
+									<div class="col-md-6">
+										<button type="button" class="btn btn-sm btn-success w-100 my-2" onclick="nextStep(2)">Next</button>
+									</div>
+								</div>
+							</div>
+
+							<!-- Step 3:-->
+							<div class="step" id="step-3" style="display:none;">
+								<!-- Skills and Experience -->
+								<h6 class="mb-4 text-primary">Skills and Experience</h6>
+								<div class="row">
+									<div class="col-md-6 mb-3">
+										<label for="skills" class="form-label">Skills</label>
+										<textarea id="skills" asp-for="cls_Employee.Skills" class="form-control" placeholder="Enter key skills, separated by commas" rows="3"></textarea>
+									</div>
+									<div class="col-md-6 mb-3">
+										<label for="experience" class="form-label">Total Work Experience</label>
+										<input id="experience" asp-for="cls_Employee.Experience" type="text" class="form-control" placeholder="Enter total years of experience" aria-label="Experience">
+									</div>
+								</div>
+
+								<!-- Certifications -->
+								<div class="row">
+									<div class="col-md-12 mb-3">
+										<label for="certifications" class="form-label">Certifications</label>
+										<textarea id="certifications" asp-for="cls_Employee.Certifications" class="form-control" placeholder="List any certifications, separated by commas" rows="3"></textarea>
+									</div>
+								</div>
+								<!-- Education Details -->
+								<h6 class="mb-4 text-primary">Education</h6>
+								<div class="row">
+									<div class="col-md-6 mb-3">
+										<label for="highestDegree" class="form-label">Highest Degree</label>
+										<input id="highestDegree" asp-for="cls_Employee.HighestDegree" type="text" class="form-control" placeholder="Enter highest degree attained" aria-label="Highest Degree">
+									</div>
+									<div class="col-md-6 mb-3">
+										<label for="institution" class="form-label">Institution Name</label>
+										<input id="institution" asp-for="cls_Employee.Institution" type="text" class="form-control" placeholder="Enter institution name" aria-label="Institution Name">
+									</div>
+								</div>
+								<!-- Previous and Next Buttons -->
+								<div class="row text-center">
+									<div class="col-md-6">
+										<button type="button" class="btn btn-sm btn-secondary w-100 my-2" onclick="prevStep(2)">Previous</button>
+									</div>
+									<div class="col-md-6">
+										<button type="button" class="btn btn-sm btn-success w-100 my-2" onclick="nextStep(3)">Next</button>
+									</div>
+								</div>
+							</div>
+
+							<!-- Step 4: Coordination of Benefits and Claim Submission -->
+							<div class="step" id="step-4" style="display:none;">
+								<h5 class="mb-4 text-primary">Payroll Information - Bank Account Details</h5>
+								<div class="row">
+									<div class="col-md-6 mb-3">
+										<label for="accountNumber" class="form-label">Account Number</label>
+										<input id="accountNumber" asp-for="cls_Employee.AccountNumber" type="text" class="form-control" placeholder="Enter account number" aria-label="Account Number">
+									</div>
+									<div class="col-md-6 mb-3">
+										<label for="ifscCode" class="form-label">IFSC Code</label>
+										<input id="ifscCode" asp-for="cls_Employee.IFSCCode" type="text" class="form-control" placeholder="Enter IFSC code" aria-label="IFSC Code">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6 mb-3">
+										<label for="bankName" class="form-label">Bank Name</label>
+										<input id="bankName" asp-for="cls_Employee.BankName" type="text" class="form-control" placeholder="Enter bank name" aria-label="Bank Name">
+									</div>
+									<div class="col-md-6 mb-3">
+										<label for="branchName" class="form-label">Branch Name</label>
+										<input id="branchName" asp-for="cls_Employee.BranchName" type="text" class="form-control" placeholder="Enter branch name" aria-label="Branch Name">
+									</div>
+								</div>
+								<h5 class="mb-4 text-primary">Payroll Information - Tax Information</h5>
+								<div class="row">
+									<div class="col-md-6 mb-3">
+										<label for="taxId" class="form-label">Taxpayer ID</label>
+										<input id="taxId" asp-for="cls_Employee.TaxID" type="text" class="form-control" placeholder="Enter taxpayer ID" aria-label="Taxpayer ID">
+									</div>
+									<div class="col-md-6 mb-3">
+										<label for="socialSecurityNumber" class="form-label">Social Security Number (SSN)</label>
+										<input id="socialSecurityNumber" asp-for="cls_Employee.SSN" type="text" class="form-control" placeholder="Enter SSN" aria-label="SSN">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6 mb-3">
+										<label for="panNumber" class="form-label">PAN Number</label>
+										<input id="panNumber" asp-for="cls_Employee.PAN" type="text" class="form-control" placeholder="Enter PAN number" aria-label="PAN">
+									</div>
+								</div>
+								<!-- Previous and Submit Button -->
+								<div class="row text-center">
+									<div class="col-md-6">
+										<button type="button" class="btn btn-sm btn-secondary w-100 my-2" onclick="prevStep(3)">Previous</button>
+									</div>
+									<div class="col-md-6">
+										<button type="button" class="btn btn-sm btn-success w-100 my-2" onclick="nextStep(3)">Next</button>
+									</div>
+								</div>
+							</div>
+							<!-- Step 5: Coordination of Benefits and Claim Submission -->
+							<div class="step" id="step-5" style="display:none;">	
+								<!-- Health Insurance Details -->
+								<h6 class="mb-4 text-primary">Health Insurance Details</h6>
+								<div class="row">
+									<div class="col-md-6 mb-3">
+										<label for="insuranceProvider" class="form-label">Insurance Provider</label>
+										<input id="insuranceProvider" asp-for="cls_Employee.HealthInsuranceProvider" type="text" class="form-control" placeholder="Enter insurance provider name" aria-label="Insurance Provider">
+									</div>
+									<div class="col-md-6 mb-3">
+										<label for="policyNumber" class="form-label">Policy Number</label>
+										<input id="policyNumber" asp-for="cls_Employee.PolicyNumber" type="text" class="form-control" placeholder="Enter policy number" aria-label="Policy Number">
+									</div>
+								</div>
+
+								<!-- Pension/Retirement Plan -->
+								<h6 class="mb-4 text-primary">Pension/Retirement Plan</h6>
+								<div class="row">
+									<div class="col-md-6 mb-3">
+										<label for="retirementPlan" class="form-label">Retirement Plan Name</label>
+										<input id="retirementPlan" asp-for="cls_Employee.RetirementPlanName" type="text" class="form-control" placeholder="Enter retirement plan name" aria-label="Retirement Plan">
+									</div>
+									<div class="col-md-6 mb-3">
+										<label for="contributionAmount" class="form-label">Contribution Amount</label>
+										<input id="contributionAmount" asp-for="cls_Employee.ContributionAmount" type="number" class="form-control" placeholder="Enter contribution amount" aria-label="Contribution Amount">
+									</div>
+								</div>
+
+								<!-- Work Authorization -->
+								<h6 class="mb-4 text-primary">Work Authorization/Visa Details</h6>
+								<div class="row">
+									<div class="col-md-6 mb-3">
+										<label for="visaType" class="form-label">Visa/Work Authorization Type</label>
+										<input id="visaType" asp-for="cls_Employee.VisaType" type="text" class="form-control" placeholder="Enter visa or work authorization type" aria-label="Visa Type">
+									</div>
+									<div class="col-md-6 mb-3">
+										<label for="visaExpiryDate" class="form-label">Visa Expiry Date</label>
+										<input id="visaExpiryDate" asp-for="cls_Employee.VisaExpiryDate" type="date" class="form-control" aria-label="Visa Expiry Date">
+									</div>
+								</div>
+
+								<!-- Agreement Upload -->
+								<h6 class="mb-4 text-primary">Employment Agreement</h6>
+								<div class="row">
+									<div class="col-md-12 mb-3">
+										<label for="agreementUpload" class="form-label">Upload Agreement/Contract</label>
+										<input id="agreementUpload" asp-for="cls_Employee.AgreementUpload" type="file" class="form-control" aria-label="Upload Agreement">
+									</div>
+								</div>
+								<div class="row text-center">
+									<div class="col-md-6">
+										<button type="button" class="btn btn-sm btn-secondary w-100 my-2" onclick="prevStep(3)">Previous</button>
+									</div>
+									<div class="col-md-6">
+										<button type="button" class="btn btn-sm btn-success w-100 my-2" onclick="nextStep(3)">Next</button>
+									</div>
+								</div>
+								</div>
+							<div class="step" id="step-6" style="display:none;">
+								<h5 class="mb-4 text-primary">System Credentials & Access</h5>
+								<!-- Email ID -->
+								<div class="row">
+									<div class="col-md-6 mb-3">
+										<label for="companyEmail" class="form-label">Company Email ID</label>
+										<input id="companyEmail" asp-for="cls_Employee.CompanyEmail" type="email" class="form-control" placeholder="Enter company email ID" aria-label="Company Email">
+									</div>
+								</div>
+								<!-- System Login Credentials -->
+								<div class="row">
+									<div class="col-md-6 mb-3">
+										<label for="username" class="form-label">System Username</label>
+										<input id="username" asp-for="cls_Employee.Username" type="text" class="form-control" placeholder="Enter username" aria-label="Username">
+									</div>
+									<div class="col-md-6 mb-3">
+										<label for="tempPassword" class="form-label">Temporary Password</label>
+										<input id="tempPassword" asp-for="cls_Employee.TempPassword" type="password" class="form-control" placeholder="Enter temporary password" aria-label="Temporary Password">
+									</div>
+								</div>
+								<!-- Access Level -->
+								<div class="row">
+									<div class="col-md-6 mb-3">
+										<label for="accessLevel" class="form-label">Access Level</label>
+										<select id="accessLevel" asp-for="cls_Employee.AccessLevel" class="form-select" aria-label="Access Level">
+											<option value="" selected disabled>Select Access Level</option>
+											<option value="Employee">Employee</option>
+											<option value="Manager">Manager</option>
+											<option value="Admin">Admin</option>
+										</select>
+									</div>
+								</div>
+								<div class="row text-center">
+									<div class="col-md-6">
+										<button type="button" class="btn btn-sm btn-secondary w-100 my-2" onclick="prevStep(3)">Previous</button>
+									</div>
+									<div class="col-md-6">
+										<button type="submit" disabled class="btn btn-sm btn-primary w-100 my-2">Submit</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+		document.addEventListener('DOMContentLoaded', function () {
+		document.addEventListener('keydown', function (event) {
+				if (event.key === 'Enter') {
+					event.preventDefault(); // Prevent the default action (form submission or button click)
+				}
+			});
+		});
+		let currentStep = 1; // Initialize current step
+		 let SecondStep = true;
+		// Function to validate individual fields dynamically
+		function validateField(inputElement, errorElement, regex, errorMessage) {
+			const value = inputElement.value.trim();
+
+			if (!regex.test(value)) {
+				inputElement.style.borderColor = "red";
+				errorElement.textContent = errorMessage;
+				errorElement.style.display = "block"; // Show the error message
+				return false;
+			} else {
+				inputElement.style.borderColor = ""; // Reset border to normal
+				errorElement.textContent = "";
+				errorElement.style.display = "none";
+
+				return true;
+			}
+		}
+
+	 function addRealTimeValidation() {
+		const fields = document.querySelectorAll("input"); // Select all input fields
+
+		// Reference specific elements for validation
+		const pcInput = document.getElementById("patientContactNumber");
+		const ptInput = document.getElementById("patientEmail");
+		const contactNumberError = document.getElementById("contactNumberError");
+		const emailError = document.getElementById("emailError");
+
+		// Regex for email validation
+		const emailPattern = /^[a-zA-Z0-9._%+-]+@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+		fields.forEach((field) => {
+			field.addEventListener("input", () => {
+				// Clear border color for all fields if they have a value
+				if (field.value.trim()) {
+					field.style.borderColor = ""; // Reset border color
+				}
+
+				// Special handling for the contact number field
+				if (field === pcInput) {
+					// Validate contact number length
+					if (pcInput.value.trim().length === 11) {
+						pcInput.style.borderColor = ""; // Reset border color
+						contactNumberError.textContent = ""; // Clear error message
+						contactNumberError.style.display = "none"; // Hide the error element
+					} else if (pcInput.value.trim().length < 11) {
+						pcInput.style.borderColor = "red"; // Highlight error
+						contactNumberError.textContent = "Please enter exactly 11 digits."; // Show error message
+						contactNumberError.style.display = "block"; // Display the error element
+					}
+				}
+
+				// Special handling for the email field
+				if (field === ptInput) {
+					// Validate email format using regex
+					if (!emailPattern.test(ptInput.value.trim())) {
+						ptInput.style.borderColor = "red"; // Highlight error
+						emailError.textContent = "Please enter a valid email address."; // Show error message
+						emailError.style.display = "block"; // Display the error element
+					} else {
+						ptInput.style.borderColor = ""; // Reset border color
+						emailError.textContent = ""; // Clear error message
+						emailError.style.display = "none"; // Hide the error element
+					}
+				}
+			});
+		});
+	}
+
+
+
+		// Validate all fields in Step 1
+		function validateStep1() {
+
+			let isValid = true; // Assume form is valid initially
+
+			// Field references
+			const dobInput = document.getElementById("DOB");
+			const docInput = document.getElementById("DOC");
+			const poyInput = document.getElementById("POY");
+			const ptInput = document.getElementById("patientEmail");
+			const pcInput = document.getElementById("patientContactNumber");
+			const pnInput = document.getElementById("PN");
+			const icnInput = document.getElementById("icn");
+			const piInput = document.getElementById("PI");
+
+			// Error elements
+			const contactNumberError = document.getElementById("contactNumberError");
+			const emailError = document.getElementById("emailError");
+
+			// Validation regex patterns
+			const patterns = {
+				contactNumber: /^[0-9]{11}$/, // Exactly 11 digits
+				email: /^[a-zA-Z0-9._%+-]+@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, // Valid email format
+			};
+
+			// Validate each field
+			isValid &= validateField(pcInput, contactNumberError, patterns.contactNumber, "Please enter 11 digits.");
+			isValid &= validateField(ptInput, emailError, patterns.email, "Please enter a valid email address.");
+
+			[pnInput, icnInput, piInput, dobInput, docInput, poyInput].forEach((input) => {
+				if (!input.value.trim()) {
+					input.style.borderColor = "red";
+					if (isValid) input.focus(); // Focus on the first invalid field
+					isValid = false;
+				}
+				else {
+					input.style.borderColor = "";
+				 }
+			});
+
+			return isValid;
+		}
+
+		   document.addEventListener('DOMContentLoaded', function () {
+			const providerInNetwork = document.getElementById('providerInNetwork');
+			const outOfNetworkContainer = document.getElementById('outOfNetworkContainer');
+			const outOfNetworkCoverage = document.getElementById('outOfNetworkCoverage');
+			const outOfNetworkError = document.getElementById('outOfNetworkError');
+
+			// Show/hide outOfNetworkContainer based on providerInNetwork selection
+			providerInNetwork.addEventListener('change', function () {
+				if (this.value === '2') { // No
+					outOfNetworkContainer.style.display = 'block';
+					outOfNetworkCoverage.setAttribute('required', 'required');
+					SecondStep = true;
+				} else {
+					outOfNetworkContainer.style.display = 'none';
+					outOfNetworkCoverage.value = ''; // Clear selection
+					outOfNetworkCoverage.removeAttribute('required');
+					outOfNetworkError.style.display = 'none';
+					outOfNetworkCoverage.style.borderColor = ''; // Reset border
+					SecondStep = false;
+				}
+			});
+		});
+				// Validation for outOfNetworkCoverage
+		function validateOutOfNetworkCoverage() {
+
+			if(SecondStep)
+			{
+			  if (providerInNetwork.value === '2' && !outOfNetworkCoverage.value.trim()) {
+			  outOfNetworkCoverage.style.borderColor = 'red';
+			  outOfNetworkError.style.display = 'block';
+			  return false;
+			} else {
+				outOfNetworkCoverage.style.borderColor = ''; // Reset border to normal
+				outOfNetworkError.style.display = 'none';
+				return true;
+			}
+			}
+			else
+			{
+				return true;
+			}
+		}
+
+		// Updated nextStep function
+		function nextStep() {
+
+			let isValid = true;
+
+			// // Validate Step 1
+			// if (currentStep === 1) {
+			// 	isValid = validateStep1();
+			// }
+			// if(currentStep === 2)
+			// {
+			// 	isValid &= validateOutOfNetworkCoverage();
+			// }
+			// Proceed to the next step only if valid
+			if (isValid) {
+				document.getElementById("step-" + currentStep).style.display = "none"; // Hide current step
+				currentStep++; // Move to the next step
+				document.getElementById("step-" + currentStep).style.display = "block"; // Show next step
+			}
+		}
+
+		// Function for the previous step
+		function prevStep() {
+			document.getElementById("step-" + currentStep).style.display = "none"; // Hide current step
+			currentStep--; // Move to the previous step
+			document.getElementById("step-" + currentStep).style.display = "block"; // Show previous step
+		}
+
+		// Initialize real-time validation on DOM load
+		document.addEventListener("DOMContentLoaded", () => {
+			addRealTimeValidation();
+		});
+			// Add an alert before refreshing or leaving the page
+		// window.addEventListener('beforeunload', function (event) {
+		// 	// Custom message is ignored in modern browsers, but event needs to be prevented
+		// 	event.preventDefault();
+
+		// 	// Display a default alert dialog
+		// 	event.returnValue = 'Are you sure?';
+		// });
+</script>

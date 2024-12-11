@@ -1,0 +1,157 @@
+/* General Styling */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Sticky Header Styling */
+.sticky {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #fff;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 36px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Page Header Styling */
+h1 {
+    font-weight: 600;
+    font-size: 2rem;
+    color: #007bff;
+}
+
+h2 {
+    font-size: 1.25rem;
+    color: #6c757d;
+}
+
+/* Form Specific Styling */
+.screening-form {
+    width: 100%;
+    padding: 15px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table {
+    background-color: #fff;
+}
+
+    .table th, .table td {
+        padding: 12px;
+        text-align: center;
+        border: 1px solid #e0e0e0;
+        font-size: 1rem;
+    }
+
+/* Table Header Styling */
+.table-gradient {
+    background-image: linear-gradient(90deg, #007bff, #00c4cc);
+    color: white;
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.table th {
+    transition: background-color 0.3s ease;
+}
+
+    .table th:hover {
+        background-color: #0056b3;
+        cursor: pointer;
+    }
+
+/* Dropzone Styling */
+.dropzone {
+    min-height: 150px;
+    background-color: #f1f1f1;
+    border: 2px dashed #007bff;
+    transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+    padding: 8px;
+}
+
+    .dropzone:hover {
+        background-color: #e9f7ff;
+        border-color: #0056b3;
+    }
+
+/* Candidate Card Styling */
+.candidate-box {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 36px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+    .candidate-box:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .candidate-box .fw-bold {
+        font-size: 1.1rem;
+    }
+
+    .candidate-box .badge {
+        font-size: 0.9rem;
+        padding: 6px 10px;
+        margin-top: 8px;
+    }
+
+/* Blinking Effect for Interview Status */
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+.blinking-text {
+    animation: blink 1s infinite;
+}
+
+/* Footer Styling */
+.card-footer {
+    font-size: 0.9rem;
+    color: #6c757d;
+    text-align: right;
+    padding: 10px;
+}
+
+
+/* Page Header Styling */
+.sticky h1 {
+    margin-bottom: 5px; /* Adjust the space between header and box */
+}
+
+.sticky h2 {
+    margin-top: 0; /* Remove top margin */
+    margin-bottom: 10px; /* Adjust the space below the subheading */
+}
+
+/* Ensure minimal margin between header and box */
+.card {
+    margin-top: 5px; /* Small margin between the header and the box */
+    padding-top: 10px; /* Padding inside the box if needed */
+}
